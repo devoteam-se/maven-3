@@ -57,6 +57,8 @@ import org.apache.maven.lifecycle.internal.LifecycleWeaveBuilder;
 import org.apache.maven.model.building.ModelProcessor;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.properties.internal.EnvironmentUtils;
+import org.apache.maven.security.crypto.Crypto;
+import org.apache.maven.security.crypto.SecretKeyCrypto;
 import org.apache.maven.settings.building.DefaultSettingsBuildingRequest;
 import org.apache.maven.settings.building.SettingsBuilder;
 import org.apache.maven.settings.building.SettingsBuildingRequest;
@@ -131,7 +133,8 @@ public class MavenCli
 
     private SettingsBuilder settingsBuilder;
 
-    private DefaultSecDispatcher dispatcher;
+    //private DefaultSecDispatcher dispatcher;
+    private Crypto crypto;
 
     public MavenCli()
     {
@@ -425,7 +428,8 @@ public class MavenCli
 
         settingsBuilder = container.lookup( SettingsBuilder.class );
 
-        dispatcher = (DefaultSecDispatcher) container.lookup( SecDispatcher.class, "maven" );
+        //dispatcher = (DefaultSecDispatcher) container.lookup( SecDispatcher.class, "maven" );
+        crypto = (Crypto) container.lookup(Crypto.class);
 
         return container;
     }
@@ -484,42 +488,55 @@ public class MavenCli
         if ( cliRequest.commandLine.hasOption( CLIManager.ENCRYPT_MASTER_PASSWORD ) )
         {
             String passwd = cliRequest.commandLine.getOptionValue( CLIManager.ENCRYPT_MASTER_PASSWORD );
+            
+            if (crypto instanceof SecretKeyCrypto) 
+            {
+            	 //TODO: decorate in the crypto class or not?
+            	System.out.println(((SecretKeyCrypto)crypto).encryptSecretKey(passwd));
 
-            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
-
-            System.out.println( cipher.encryptAndDecorate( passwd, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION ) );
+            } else {
+            	//TODO: better message
+            	System.err.println("Unable to encrypt master password.");
+            }
+            
+//            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
+//
+//            System.out.println( cipher.encryptAndDecorate( passwd, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION ) );
 
             throw new ExitException( 0 );
         }
         else if ( cliRequest.commandLine.hasOption( CLIManager.ENCRYPT_PASSWORD ) )
         {
             String passwd = cliRequest.commandLine.getOptionValue( CLIManager.ENCRYPT_PASSWORD );
+            //TODO: decorate in the crypto class or not?
+            System.out.println(crypto.encrypt(passwd));
 
-            String configurationFile = dispatcher.getConfigurationFile();
-
-            if ( configurationFile.startsWith( "~" ) )
-            {
-                configurationFile = System.getProperty( "user.home" ) + configurationFile.substring( 1 );
-            }
-
-            String file = System.getProperty( DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION, configurationFile );
-
-            String master = null;
-
-            SettingsSecurity sec = SecUtil.read( file, true );
-            if ( sec != null )
-            {
-                master = sec.getMaster();
-            }
-
-            if ( master == null )
-            {
-                throw new IllegalStateException( "Master password is not set in the setting security file: " + file );
-            }
-
-            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
-            String masterPasswd = cipher.decryptDecorated( master, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION );
-            System.out.println( cipher.encryptAndDecorate( passwd, masterPasswd ) );
+//            
+//            String configurationFile = dispatcher.getConfigurationFile();
+//
+//            if ( configurationFile.startsWith( "~" ) )
+//            {
+//                configurationFile = System.getProperty( "user.home" ) + configurationFile.substring( 1 );
+//            }
+//
+//            String file = System.getProperty( DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION, configurationFile );
+//
+//            String master = null;
+//
+//            SettingsSecurity sec = SecUtil.read( file, true );
+//            if ( sec != null )
+//            {
+//                master = sec.getMaster();
+//            }
+//
+//            if ( master == null )
+//            {
+//                throw new IllegalStateException( "Master password is not set in the setting security file: " + file );
+//            }
+//
+//            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
+//            String masterPasswd = cipher.decryptDecorated( master, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION );
+//            System.out.println( cipher.encryptAndDecorate( passwd, masterPasswd ) );
 
             throw new ExitException( 0 );
         }

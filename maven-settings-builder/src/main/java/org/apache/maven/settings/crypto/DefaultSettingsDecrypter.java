@@ -22,6 +22,8 @@ package org.apache.maven.settings.crypto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.maven.security.crypto.CryptoException;
+import org.apache.maven.security.crypto.Crypto;
 import org.apache.maven.settings.Proxy;
 import org.apache.maven.settings.Server;
 import org.apache.maven.settings.building.DefaultSettingsProblem;
@@ -42,8 +44,14 @@ public class DefaultSettingsDecrypter
     implements SettingsDecrypter
 {
 
-    @Requirement( hint = "maven" )
-    private SecDispatcher securityDispatcher;
+	//@Requirement( hint = "maven" ) - moved to default implementation of Crypto
+    //private SecDispatcher securityDispatcher;
+	
+	/**
+	 * The new security dispatcher
+	 */
+	@Requirement
+	private Crypto crypto;
 
     public SettingsDecryptionResult decrypt( SettingsDecryptionRequest request )
     {
@@ -61,7 +69,7 @@ public class DefaultSettingsDecrypter
             {
                 server.setPassword( decrypt( server.getPassword() ) );
             }
-            catch ( SecDispatcherException e )
+            catch ( CryptoException e )
             {
                 problems.add( new DefaultSettingsProblem( "Failed to decrypt password for server " + server.getId()
                     + ": " + e.getMessage(), Severity.ERROR, "server: " + server.getId(), -1, -1, e ) );
@@ -71,7 +79,7 @@ public class DefaultSettingsDecrypter
             {
                 server.setPassphrase( decrypt( server.getPassphrase() ) );
             }
-            catch ( SecDispatcherException e )
+            catch ( CryptoException e )
             {
                 problems.add( new DefaultSettingsProblem( "Failed to decrypt passphrase for server " + server.getId()
                     + ": " + e.getMessage(), Severity.ERROR, "server: " + server.getId(), -1, -1, e ) );
@@ -90,7 +98,7 @@ public class DefaultSettingsDecrypter
             {
                 proxy.setPassword( decrypt( proxy.getPassword() ) );
             }
-            catch ( SecDispatcherException e )
+            catch ( CryptoException e )
             {
                 problems.add( new DefaultSettingsProblem( "Failed to decrypt password for proxy " + proxy.getId()
                     + ": " + e.getMessage(), Severity.ERROR, "proxy: " + proxy.getId(), -1, -1, e ) );
@@ -100,10 +108,9 @@ public class DefaultSettingsDecrypter
         return new DefaultSettingsDecryptionResult( servers, proxies, problems );
     }
 
-    private String decrypt( String str )
-        throws SecDispatcherException
+    private String decrypt( String str ) throws CryptoException
     {
-        return ( str == null ) ? null : securityDispatcher.decrypt( str );
+        return ( str == null ) ? null : crypto.decrypt( str );
     }
 
 }
