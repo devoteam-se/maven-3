@@ -58,6 +58,7 @@ import org.apache.maven.model.building.ModelProcessor;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.properties.internal.EnvironmentUtils;
 import org.apache.maven.security.crypto.Crypto;
+import org.apache.maven.security.crypto.DefaultCryptoDecorator;
 import org.apache.maven.security.crypto.SecretKeyCrypto;
 import org.apache.maven.settings.building.DefaultSettingsBuildingRequest;
 import org.apache.maven.settings.building.SettingsBuilder;
@@ -491,12 +492,14 @@ public class MavenCli
             
             if (crypto instanceof SecretKeyCrypto) 
             {
-            	 //TODO: decorate in the crypto class or not?
-            	System.out.println(((SecretKeyCrypto)crypto).encryptSecretKey(passwd));
+            	
+            	final String encrypted = ((SecretKeyCrypto)crypto).encryptSecretKey(passwd);
+            	final DefaultCryptoDecorator cryptoDecorator = new  DefaultCryptoDecorator(crypto);
+            	System.out.println(cryptoDecorator.decorateText(encrypted));
 
             } else {
-            	//TODO: better message
-            	System.err.println("Unable to encrypt master password.");
+            	
+            	System.err.println("Unable to encrypt master password. The encryption class is missing.");
             }
             
 //            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
@@ -507,9 +510,10 @@ public class MavenCli
         }
         else if ( cliRequest.commandLine.hasOption( CLIManager.ENCRYPT_PASSWORD ) )
         {
-            String passwd = cliRequest.commandLine.getOptionValue( CLIManager.ENCRYPT_PASSWORD );
-            //TODO: decorate in the crypto class or not?
-            System.out.println(crypto.encrypt(passwd));
+            String passwd = cliRequest.commandLine.getOptionValue(CLIManager.ENCRYPT_PASSWORD);
+            final DefaultCryptoDecorator cryptoDecorator = new  DefaultCryptoDecorator(crypto);
+            final String encrypted = cryptoDecorator.encrypt(passwd);
+            System.out.println(cryptoDecorator.decorateText(encrypted));
 
 //            
 //            String configurationFile = dispatcher.getConfigurationFile();

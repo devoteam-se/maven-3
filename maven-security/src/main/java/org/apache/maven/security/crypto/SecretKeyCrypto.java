@@ -25,8 +25,9 @@ public interface SecretKeyCrypto extends Crypto
 	 * 
 	 * @param plaintext the secret key to encrypt
 	 * @return the encrypted secret key
+	 * @throws CryptoException encryption error
 	 */
-	public String encryptSecretKey(final String plaintext);
+	public String encryptSecretKey(final String plaintext) throws CryptoException;
 	/**
 	 * Returns the secret key to use when encrypting plain text and decrypting cipher text
 	 * @return the secret key
