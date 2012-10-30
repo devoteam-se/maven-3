@@ -1,5 +1,7 @@
 package org.apache.maven.security.crypto;
 
+//TODO: add copyright
+
 /**
  * Occurs when there is a problem encrypting or decrypting a text.
  * @author Karin Karlsson

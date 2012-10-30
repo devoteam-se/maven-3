@@ -1,9 +1,19 @@
 package org.apache.maven.security.crypto;
 
+//TODO: add copyright
 
+/**
+ * Decorates ciphered text.
+ * 
+ * @author Karin Karlsson
+ *
+ */
 public abstract class CryptoDecorator implements Crypto 
 {
 	
+	/**
+	 * The crypto to decorate.
+	 */
 	protected final Crypto decoratedCrypto;
 	
 	public CryptoDecorator(final Crypto crypto)

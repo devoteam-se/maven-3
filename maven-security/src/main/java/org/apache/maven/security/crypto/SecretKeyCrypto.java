@@ -1,5 +1,7 @@
 package org.apache.maven.security.crypto;
 
+//TODO: add copyright
+
 /**
  * Offers a symmetric-key cryptography where the encryption of plain text and
  * the decryption of cipher text use the same key. 

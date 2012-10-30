@@ -2,7 +2,14 @@ package org.apache.maven.security.crypto;
 
 import org.sonatype.plexus.components.cipher.PlexusCipher;
 
+//TODO: add copyright
 
+/**
+ * Decorates ciphered text.
+ * 
+ * @author Karin Karlsson
+ *
+ */
 public class DefaultCryptoDecorator extends CryptoDecorator 
 {
 

@@ -1,6 +1,6 @@
 package org.apache.maven.security.crypto;
 
-import java.nio.ByteBuffer;
+//TODO: add copyright
 
 /**
  * This class handles cryptographic details.
