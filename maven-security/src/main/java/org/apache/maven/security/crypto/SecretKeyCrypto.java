@@ -9,7 +9,6 @@ package org.apache.maven.security.crypto;
  * Both parties must have access to the secret key.
  *
  * @author Karin Karlsson
- *
  */
 public interface SecretKeyCrypto extends Crypto 
 {
@@ -24,15 +23,15 @@ public interface SecretKeyCrypto extends Crypto
 	 * <p/>Note that the encryption of the secret key must have a secret key
 	 * itself. This particular secret key should not be visible at all.
 	 * 
-	 * 
-	 * @param plaintext the secret key to encrypt
+	 * @param plainkey the secret key to encrypt
 	 * @return the encrypted secret key
 	 * @throws CryptoException encryption error
 	 */
-	public String encryptSecretKey(final String plaintext) throws CryptoException;
+	public String encryptSecretKey(final String plainkey) throws CryptoException;
 	
 	/**
 	 * Returns the secret key to use when encrypting plain text and decrypting cipher text
+	 * 
 	 * @return the secret key
 	 */
 	public SecretKey getKey();

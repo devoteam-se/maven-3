@@ -23,7 +23,7 @@ public class DefaultCrypto implements SecretKeyCrypto
 	/**
 	 * Deals with decryption.
 	 */
-	@Requirement
+    @Requirement( hint = "maven" )
 	private SecDispatcher securityDispatcher;
 	
 	/**
@@ -43,9 +43,6 @@ public class DefaultCrypto implements SecretKeyCrypto
 	 */
 	public String encrypt(String plaintext) throws CryptoException 
 	{
-		
-		//encrypts a master password
-		
 		String key = getKey().getValue();
 		if (isDecorated(key)) 
 		{
@@ -58,10 +55,10 @@ public class DefaultCrypto implements SecretKeyCrypto
 				throw new CryptoException(e);
 			}
 		}
-		String decryptedMasterKey;
+
 		try 
 		{
-			decryptedMasterKey = cipher.decrypt(getKey().getValue(), DEFAULT_SECRET_KEY);
+			String decryptedMasterKey = cipher.decrypt(key, DEFAULT_SECRET_KEY);
 			return cipher.encrypt(plaintext, decryptedMasterKey);
 		} 
 		catch (PlexusCipherException e) 
@@ -95,10 +92,10 @@ public class DefaultCrypto implements SecretKeyCrypto
 
 			public String getValue() throws CryptoException {
 				
-				//Reads the value from the {@code settings-security.xml} file.
-				//the code is copied from plexus cipher lib
+				//Reads the value from the settings-security.xml file.
+				//FIXME: the code is copied from plexus sec dispatcher lib
 				
-				final String location = System.getProperty(DEFAULT_SECRET_KEY, "~/.settings-security.xml");
+				final String location = System.getProperty(DEFAULT_SECRET_KEY, "~/.m2/settings-security.xml");
 				final String realLocation = location.charAt( 0 ) == '~' ? System.getProperty("user.home") + location.substring(1) : location;
 				
 				try {
@@ -111,7 +108,7 @@ public class DefaultCrypto implements SecretKeyCrypto
 					throw new CryptoException(e);
 				}
 				
-				throw new CryptoException ("master password is not set");
+				throw new CryptoException ("Master password is not set");
 			}
 			
 		};
@@ -120,18 +117,16 @@ public class DefaultCrypto implements SecretKeyCrypto
 	/**
 	 * {@inheritDoc}
 	 */
-	public String encryptSecretKey(String plaintext) throws CryptoException
+	public String encryptSecretKey(String plainkey) throws CryptoException
 	{
-
 		try 
 		{
-			return cipher.encrypt(plaintext, DEFAULT_SECRET_KEY);
+			return cipher.encrypt(plainkey, DEFAULT_SECRET_KEY);
 		} 
 		catch (PlexusCipherException e) 
 		{
 			throw new CryptoException(e);
 		}
-
 	}
 	
 	/**
@@ -141,6 +136,7 @@ public class DefaultCrypto implements SecretKeyCrypto
 	 * {@code PlexusCipher.ENCRYPTED_STRING_DECORATION_START} character and 
 	 * ends with the {@code PlexusCipher.ENCRYPTED_STRING_DECORATION_STOP} character.
 	 */
+//FIXME: This is probably not correct, a decorated string could look like "Anders was here {COQLCE6DU6GtcS5P=}"  /andham
 	private boolean isDecorated(final String text) 
 	{
 		StringBuilder builder = new StringBuilder(text);

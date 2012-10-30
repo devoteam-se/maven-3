@@ -31,8 +31,6 @@ import org.apache.maven.settings.building.SettingsProblem;
 import org.apache.maven.settings.building.SettingsProblem.Severity;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
-import org.sonatype.plexus.components.sec.dispatcher.SecDispatcher;
-import org.sonatype.plexus.components.sec.dispatcher.SecDispatcherException;
 
 /**
  * Decrypts passwords in the settings.
@@ -44,12 +42,6 @@ public class DefaultSettingsDecrypter
     implements SettingsDecrypter
 {
 
-	//@Requirement( hint = "maven" ) - moved to default implementation of Crypto
-    //private SecDispatcher securityDispatcher;
-	
-	/**
-	 * The new security dispatcher
-	 */
 	@Requirement
 	private Crypto crypto;
 
