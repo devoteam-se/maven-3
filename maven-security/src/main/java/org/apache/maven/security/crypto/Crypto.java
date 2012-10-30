@@ -19,7 +19,6 @@ public interface Crypto
 	 */
 	public String encrypt(final String plaintext) throws CryptoException;
 
-	
 	/**
 	 * Decrypt cipher text and return a plain text output.
 	 * 

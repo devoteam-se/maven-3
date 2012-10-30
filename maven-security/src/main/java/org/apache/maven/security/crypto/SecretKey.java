@@ -10,6 +10,7 @@ package org.apache.maven.security.crypto;
  */
 public interface SecretKey 
 {
+	
 	/**
 	 * The secret key represented as a string
 	 * @return the key

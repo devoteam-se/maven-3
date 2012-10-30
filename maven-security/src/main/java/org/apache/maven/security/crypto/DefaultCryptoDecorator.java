@@ -34,7 +34,6 @@ public class DefaultCryptoDecorator extends CryptoDecorator
 		builder.insert(0, PREFIX);
 		builder.append(POSTFIX);
 		return builder.toString();
-
 	}
 	
 	/**
@@ -56,7 +55,6 @@ public class DefaultCryptoDecorator extends CryptoDecorator
 		}
 		return text;
 	}
-	
 	
 
 }

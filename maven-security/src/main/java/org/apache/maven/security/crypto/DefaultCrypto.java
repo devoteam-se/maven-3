@@ -1,6 +1,5 @@
 package org.apache.maven.security.crypto;
 
-
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.sonatype.plexus.components.cipher.PlexusCipher;
@@ -39,7 +38,6 @@ public class DefaultCrypto implements SecretKeyCrypto
 	 */
 	private static final String DEFAULT_SECRET_KEY = "settings.security";
 	
-	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -70,11 +68,8 @@ public class DefaultCrypto implements SecretKeyCrypto
 		{
 			throw new CryptoException(e);
 		}
-		
-		
 	}
 
-	
 	
 	/**
 	 * {@inheritDoc}
@@ -90,7 +85,6 @@ public class DefaultCrypto implements SecretKeyCrypto
 			throw new CryptoException(e);
 		}
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -158,5 +152,4 @@ public class DefaultCrypto implements SecretKeyCrypto
 		return false;
 	}
 	
-
 }
