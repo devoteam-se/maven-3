@@ -132,20 +132,12 @@ public class DefaultCrypto implements SecretKeyCrypto
 	/**
 	 * Test if the text is decorated or not.
 	 * @param text the text to test
-	 * @return true if the text starts with the 
-	 * {@code PlexusCipher.ENCRYPTED_STRING_DECORATION_START} character and 
-	 * ends with the {@code PlexusCipher.ENCRYPTED_STRING_DECORATION_STOP} character.
+	 * @return true if the text is decorated, false otherwise
 	 */
-//FIXME: This is probably not correct, a decorated string could look like "Anders was here {COQLCE6DU6GtcS5P=}"  /andham
 	private boolean isDecorated(final String text) 
 	{
-		StringBuilder builder = new StringBuilder(text);
-		if (builder.charAt(0) == PlexusCipher.ENCRYPTED_STRING_DECORATION_START && 
-				builder.charAt(builder.length() - 1) == PlexusCipher.ENCRYPTED_STRING_DECORATION_STOP) 
-		{
-			return true;
-		}
-		return false;
+		//PlexusChiper.isEncryptedString method checks if given string is decorated
+		return cipher.isEncryptedString(text);
 	}
 	
 }
