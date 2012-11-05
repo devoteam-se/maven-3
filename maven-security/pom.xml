@@ -34,26 +34,54 @@ under the License.
   <description>Maven Crypto component.</description>
 
   <dependencies>
+   <!-- Plexus -->
     <dependency>
     	<groupId>org.sonatype.plexus</groupId>
     	<artifactId>plexus-sec-dispatcher</artifactId>
     </dependency>
     <dependency>
-    	<groupId>org.codehaus.plexus</groupId>
-    	<artifactId>plexus-component-annotations</artifactId>
-    </dependency>
-    <dependency>
     	<groupId>org.sonatype.plexus</groupId>
     	<artifactId>plexus-cipher</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-inject-plexus</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-classworlds</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-component-annotations</artifactId>
     </dependency>
   </dependencies>
   
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.plexus</groupId>
-        <artifactId>plexus-component-metadata</artifactId>
-      </plugin>
+  		<plugin>
+  			<!-- Generates a Plexus components.xml component descriptor file -->
+	        <groupId>org.codehaus.plexus</groupId>
+	        <artifactId>plexus-component-metadata</artifactId>
+        	<executions>
+          		<execution>
+            		<id>process-classes</id>
+            		<goals>
+              			<goal>generate-metadata</goal>
+            		</goals>
+          		</execution>
+          		<execution>
+            		<id>process-test-classes</id>
+            		<goals>
+              			<goal>generate-test-metadata</goal>
+            		</goals>
+          		</execution>
+        	</executions>  		
+  		</plugin>
     </plugins>
   </build>
 </project>
