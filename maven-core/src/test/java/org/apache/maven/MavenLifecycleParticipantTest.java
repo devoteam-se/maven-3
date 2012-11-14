@@ -89,10 +89,8 @@ public class MavenLifecycleParticipantTest
         throws Exception
     {
        
-    	//TODO: fix this - Karin 2012-11-04
-    	
-    	Assert.assertFalse(false);
-    	/*PlexusContainer container = getContainer();
+ 
+    	PlexusContainer container = getContainer();
 
         ComponentDescriptor cd =
             new ComponentDescriptor( InjectDependencyLifecycleListener.class, container.getContainerRealm() );
@@ -114,6 +112,6 @@ public class MavenLifecycleParticipantTest
         ArrayList<Artifact> artifacts = new ArrayList<Artifact>( project.getArtifacts() );
 
         assertEquals( 1, artifacts.size() );
-        assertEquals( INJECTED_ARTIFACT_ID, artifacts.get( 0 ).getArtifactId() );*/
+        assertEquals( INJECTED_ARTIFACT_ID, artifacts.get( 0 ).getArtifactId() );
     }
 }

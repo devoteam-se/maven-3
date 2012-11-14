@@ -10,33 +10,31 @@ import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Requirement;
 
-public class MavenTest
-    extends AbstractCoreMavenComponentTestCase
+public class MavenTest extends AbstractCoreMavenComponentTestCase 
 {
-	//TODO: fix this - Karin 2012-11-04
 	
-//    @Requirement
-//    private Maven maven;
-//
-//    @Requirement
-//    private ExceptionHandler exceptionHandler;
+    @Requirement
+    private Maven maven;
 
-//    protected void setUp()
-//        throws Exception
-//    {
-//        super.setUp();
-//        maven = lookup( Maven.class );
-//        exceptionHandler = lookup( ExceptionHandler.class );
-//    }
+    @Requirement
+    private ExceptionHandler exceptionHandler;
 
-//    @Override
-//    protected void tearDown()
-//        throws Exception
-//    {
-//        maven = null;
-//        exceptionHandler = null;
-//        super.tearDown();
-//    }
+    protected void setUp()
+        throws Exception
+    {
+        super.setUp();
+        maven = lookup( Maven.class );
+        exceptionHandler = lookup( ExceptionHandler.class );
+    }
+
+    @Override
+    protected void tearDown()
+        throws Exception
+    {
+        maven = null;
+        exceptionHandler = null;
+        super.tearDown();
+    }
 
     protected String getProjectsDirectory()
     {
@@ -47,8 +45,7 @@ public class MavenTest
         throws Exception
     {
         
-    	Assert.assertFalse(false);
-    	/*
+    	
     	File pom = getProject( "project-with-additional-lifecycle-elements" );
         MavenExecutionRequest request = createMavenExecutionRequest( pom );
         MavenExecutionResult result = maven.execute( request );
@@ -59,7 +56,7 @@ public class MavenTest
             es.getException().printStackTrace();
             fail( "Maven did not execute correctly." );
         }
-        */
+        
     }
     
 }

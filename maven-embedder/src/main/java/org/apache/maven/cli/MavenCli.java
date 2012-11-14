@@ -58,6 +58,7 @@ import org.apache.maven.model.building.ModelProcessor;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.properties.internal.EnvironmentUtils;
 import org.apache.maven.security.crypto.Crypto;
+import org.apache.maven.security.crypto.CryptoDecorator;
 import org.apache.maven.security.crypto.DefaultCryptoDecorator;
 import org.apache.maven.security.crypto.SecretKeyCrypto;
 import org.apache.maven.settings.building.DefaultSettingsBuildingRequest;
@@ -136,6 +137,7 @@ public class MavenCli
 
     //private DefaultSecDispatcher dispatcher;
     private Crypto crypto;
+    private CryptoDecorator cryptoDecorator;
 
     public MavenCli()
     {
@@ -431,6 +433,7 @@ public class MavenCli
 
         //dispatcher = (DefaultSecDispatcher) container.lookup( SecDispatcher.class, "maven" );
         crypto = (Crypto) container.lookup(Crypto.class);
+        cryptoDecorator = (CryptoDecorator)container.lookup(CryptoDecorator.class);
 
         return container;
     }
@@ -494,7 +497,6 @@ public class MavenCli
             {
             	
             	final String encrypted = ((SecretKeyCrypto)crypto).encryptSecretKey(passwd);
-            	final DefaultCryptoDecorator cryptoDecorator = new  DefaultCryptoDecorator(crypto);
             	System.out.println(cryptoDecorator.decorateText(encrypted));
 
             } else {
@@ -511,7 +513,6 @@ public class MavenCli
         else if ( cliRequest.commandLine.hasOption( CLIManager.ENCRYPT_PASSWORD ) )
         {
             String passwd = cliRequest.commandLine.getOptionValue(CLIManager.ENCRYPT_PASSWORD);
-            final DefaultCryptoDecorator cryptoDecorator = new  DefaultCryptoDecorator(crypto);
             final String encrypted = cryptoDecorator.encrypt(passwd);
             System.out.println(cryptoDecorator.decorateText(encrypted));
 

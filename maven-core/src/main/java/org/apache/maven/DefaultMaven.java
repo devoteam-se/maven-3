@@ -141,6 +141,7 @@ public class DefaultMaven
     @Requirement
     private SettingsDecrypter settingsDecrypter;
 
+
     @Requirement
     private LegacySupport legacySupport;
 
@@ -379,7 +380,7 @@ public class DefaultMaven
         decrypt.setProxies( request.getProxies() );
         decrypt.setServers( request.getServers() );
         SettingsDecryptionResult decrypted = settingsDecrypter.decrypt( decrypt );
-
+        
         if ( logger.isDebugEnabled() )
         {
             for ( SettingsProblem problem : decrypted.getProblems() )
@@ -461,7 +462,7 @@ public class DefaultMaven
 
         return session;
     }
-
+    
     private String getUserAgent()
     {
         return "Apache-Maven/" + getMavenVersion()
