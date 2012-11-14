@@ -22,7 +22,6 @@ package org.apache.maven.settings.crypto;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.maven.security.crypto.CryptoDecorator;
 import org.apache.maven.security.crypto.CryptoException;
 import org.apache.maven.settings.Proxy;
@@ -43,8 +42,8 @@ public class DefaultSettingsDecrypter
     implements SettingsDecrypter
 {
 
-	@Requirement
-	private CryptoDecorator crypto;
+    @Requirement
+    private CryptoDecorator crypto;
 
     public SettingsDecryptionResult decrypt( SettingsDecryptionRequest request )
     {
@@ -101,18 +100,20 @@ public class DefaultSettingsDecrypter
         return new DefaultSettingsDecryptionResult( servers, proxies, problems );
     }
 
-    private String decrypt( String str ) throws CryptoException
+    private String decrypt( String str )
+        throws CryptoException
     {
-        if (str != null)
+        if ( str != null )
         {
-        	String decryptedStr = crypto.decrypt(str);
-        	if (crypto.isDecoratedText(decryptedStr)) {
-        		decryptedStr = crypto.unDecorateText(decryptedStr);
-        	}
-        	return decryptedStr;
+            String decryptedStr = crypto.decrypt( str );
+            if ( crypto.isDecoratedText( decryptedStr ) )
+            {
+                decryptedStr = crypto.unDecorateText( decryptedStr );
+            }
+            return decryptedStr;
         }
-    	
-    	return null;
+
+        return null;
     }
 
 }

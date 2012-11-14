@@ -135,7 +135,6 @@ public class MavenCli
 
     private SettingsBuilder settingsBuilder;
 
-    //private DefaultSecDispatcher dispatcher;
     private Crypto crypto;
     private CryptoDecorator cryptoDecorator;
 
@@ -431,7 +430,6 @@ public class MavenCli
 
         settingsBuilder = container.lookup( SettingsBuilder.class );
 
-        //dispatcher = (DefaultSecDispatcher) container.lookup( SecDispatcher.class, "maven" );
         crypto = (Crypto) container.lookup(Crypto.class);
         cryptoDecorator = (CryptoDecorator)container.lookup(CryptoDecorator.class);
 
@@ -492,56 +490,24 @@ public class MavenCli
         if ( cliRequest.commandLine.hasOption( CLIManager.ENCRYPT_MASTER_PASSWORD ) )
         {
             String passwd = cliRequest.commandLine.getOptionValue( CLIManager.ENCRYPT_MASTER_PASSWORD );
-            
-            if (crypto instanceof SecretKeyCrypto) 
-            {
-            	
-            	final String encrypted = ((SecretKeyCrypto)crypto).encryptSecretKey(passwd);
-            	System.out.println(cryptoDecorator.decorateText(encrypted));
 
-            } else {
-            	
-            	System.err.println("Unable to encrypt master password. The encryption class is missing.");
+            if ( crypto instanceof SecretKeyCrypto )
+            {
+                final String encrypted = ( (SecretKeyCrypto) crypto ).encryptSecretKey( passwd );
+                System.out.println( cryptoDecorator.decorateText( encrypted ) );
             }
-            
-//            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
-//
-//            System.out.println( cipher.encryptAndDecorate( passwd, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION ) );
+            else
+            {
+                System.err.println( "Unable to encrypt master password. The encryption class is missing." );
+            }
 
             throw new ExitException( 0 );
         }
         else if ( cliRequest.commandLine.hasOption( CLIManager.ENCRYPT_PASSWORD ) )
         {
-            String passwd = cliRequest.commandLine.getOptionValue(CLIManager.ENCRYPT_PASSWORD);
-            final String encrypted = cryptoDecorator.encrypt(passwd);
-            System.out.println(cryptoDecorator.decorateText(encrypted));
-
-//            
-//            String configurationFile = dispatcher.getConfigurationFile();
-//
-//            if ( configurationFile.startsWith( "~" ) )
-//            {
-//                configurationFile = System.getProperty( "user.home" ) + configurationFile.substring( 1 );
-//            }
-//
-//            String file = System.getProperty( DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION, configurationFile );
-//
-//            String master = null;
-//
-//            SettingsSecurity sec = SecUtil.read( file, true );
-//            if ( sec != null )
-//            {
-//                master = sec.getMaster();
-//            }
-//
-//            if ( master == null )
-//            {
-//                throw new IllegalStateException( "Master password is not set in the setting security file: " + file );
-//            }
-//
-//            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
-//            String masterPasswd = cipher.decryptDecorated( master, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION );
-//            System.out.println( cipher.encryptAndDecorate( passwd, masterPasswd ) );
+            String passwd = cliRequest.commandLine.getOptionValue( CLIManager.ENCRYPT_PASSWORD );
+            final String encrypted = cryptoDecorator.encrypt( passwd );
+            System.out.println( cryptoDecorator.decorateText( encrypted ) );
 
             throw new ExitException( 0 );
         }
