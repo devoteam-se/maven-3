@@ -21,8 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import junit.framework.Assert;
-
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.execution.MavenExecutionResult;
@@ -88,9 +86,7 @@ public class MavenLifecycleParticipantTest
     public void testDependencyInjection()
         throws Exception
     {
-       
- 
-    	PlexusContainer container = getContainer();
+        PlexusContainer container = getContainer();
 
         ComponentDescriptor cd =
             new ComponentDescriptor( InjectDependencyLifecycleListener.class, container.getContainerRealm() );
