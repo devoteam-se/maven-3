@@ -17,9 +17,9 @@ package org.apache.maven.security.crypto;
 
 import java.io.IOException;
 
+import org.apache.maven.security.util.FileLocator;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
-import org.maven.security.util.FileLocator;
 import org.sonatype.plexus.components.cipher.PlexusCipher;
 import org.sonatype.plexus.components.cipher.PlexusCipherException;
 import org.sonatype.plexus.components.sec.dispatcher.SecDispatcher;

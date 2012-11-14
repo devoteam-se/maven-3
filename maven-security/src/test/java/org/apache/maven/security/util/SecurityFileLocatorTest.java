@@ -3,9 +3,9 @@ package org.apache.maven.security.util;
 import java.io.File;
 import junit.framework.Assert;
 
+import org.apache.maven.security.util.FileLocator;
+import org.apache.maven.security.util.SecurityFileLocator;
 import org.codehaus.plexus.PlexusTestCase;
-import org.maven.security.util.FileLocator;
-import org.maven.security.util.SecurityFileLocator;
 
 /**
  * Test the {@link #SecurityFileLocator} class.
