@@ -55,8 +55,8 @@ under the License.
       <artifactId>maven-settings</artifactId>
     </dependency>
     <dependency>
-    	<groupId>org.sonatype.plexus</groupId>
-    	<artifactId>plexus-sec-dispatcher</artifactId>
+      <groupId>org.sonatype.plexus</groupId>
+      <artifactId>plexus-sec-dispatcher</artifactId>
     </dependency>
   </dependencies>
 

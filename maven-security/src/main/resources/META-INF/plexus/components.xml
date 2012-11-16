@@ -22,8 +22,7 @@ under the License.
 <component-set>
   <components>
     <!--
-      This component descriptor cannot be generated from annotations because of the
-      accompanying configuration.
+      This component descriptor cannot be generated.
     -->
     <component>
       <role>org.sonatype.plexus.components.sec.dispatcher.SecDispatcher</role>
