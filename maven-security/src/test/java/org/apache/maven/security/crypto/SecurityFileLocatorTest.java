@@ -1,4 +1,4 @@
-package org.apache.security.crypto;
+package org.apache.maven.security.crypto;
 
 import java.io.File;
 import junit.framework.Assert;
