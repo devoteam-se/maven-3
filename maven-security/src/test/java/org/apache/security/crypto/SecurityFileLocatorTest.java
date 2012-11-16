@@ -1,4 +1,4 @@
-package org.apache.maven.security.util;
+package org.apache.security.crypto;
 
 import java.io.File;
 import junit.framework.Assert;
@@ -15,8 +15,6 @@ import org.codehaus.plexus.PlexusTestCase;
 public class SecurityFileLocatorTest
     extends PlexusTestCase
 {
-
-    // TODO: skip this test if settings-security.xml not present or generate a dummy one?
 
     private String pathToSecFile = null;
 

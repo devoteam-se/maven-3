@@ -15,17 +15,12 @@ package org.apache.maven.security.crypto;
  * the License.
  */
 
-import java.io.IOException;
-
-import org.apache.maven.security.util.FileLocator;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.sonatype.plexus.components.cipher.PlexusCipher;
 import org.sonatype.plexus.components.cipher.PlexusCipherException;
 import org.sonatype.plexus.components.sec.dispatcher.SecDispatcher;
 import org.sonatype.plexus.components.sec.dispatcher.SecDispatcherException;
-import org.sonatype.plexus.components.sec.dispatcher.SecUtil;
-import org.sonatype.plexus.components.sec.dispatcher.model.SettingsSecurity;
 
 /**
  * This class handles encryption and decryption details.
@@ -36,6 +31,9 @@ import org.sonatype.plexus.components.sec.dispatcher.model.SettingsSecurity;
 public class DefaultCrypto
     implements SecretKeyCrypto
 {
+
+    @Requirement
+    private SecretKey secretKey;
 
     /**
      * Deals with decryption.
@@ -106,42 +104,7 @@ public class DefaultCrypto
      */
     public SecretKey getKey()
     {
-        return new SecretKey()
-        {
-
-            @Requirement( hint = "settings-security" )
-            FileLocator settingsSecurityLocator;
-
-            /**
-             * {@inheritDoc}
-             */
-            public String getValue()
-                throws CryptoException
-            {
-
-                try
-                {
-                    // parse the settings-security.xml file
-                    SettingsSecurity sec = SecUtil.read( settingsSecurityLocator.getLocation(), true );
-                    if ( sec != null && sec.getMaster() != null )
-                    {
-                        return sec.getMaster();
-                    }
-
-                }
-                catch ( SecDispatcherException e )
-                {
-                    throw new CryptoException( e );
-                }
-                catch ( IOException e )
-                {
-                    throw new CryptoException( e );
-                }
-
-                throw new CryptoException( "Master password is not set" );
-            }
-
-        };
+        return secretKey;
     }
 
     /**
