@@ -75,6 +75,7 @@ public class DefaultArtifactFilterManager
         artifacts.add( "org.apache.maven:maven-profile" );
         artifacts.add( "org.apache.maven:maven-project" );
         artifacts.add( "org.apache.maven:maven-repository-metadata" );
+        artifacts.add( "org.apache.maven:maven-security" );
         artifacts.add( "org.apache.maven:maven-settings" );
         artifacts.add( "org.apache.maven:maven-settings-builder" );
         artifacts.add( "org.apache.maven:maven-toolchain" );
