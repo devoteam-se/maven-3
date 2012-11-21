@@ -70,7 +70,7 @@ public abstract class CryptoDecorator
     /**
      * {@inheritDoc}
      */
-    public String encrypt( String plaintext )
+    public final String encrypt( String plaintext )
         throws CryptoException
     {
         return decoratedCrypto.encrypt( plaintext );
@@ -79,7 +79,7 @@ public abstract class CryptoDecorator
     /**
      * {@inheritDoc}
      */
-    public String decrypt( String ciphertext )
+    public final String decrypt( String ciphertext )
         throws CryptoException
     {
         return decoratedCrypto.decrypt( ciphertext );
