@@ -26,7 +26,6 @@ import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.artifact.repository.RepositoryCache;
 import org.apache.maven.artifact.repository.RepositoryRequest;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.settings.Mirror;
@@ -62,7 +61,7 @@ public class ArtifactResolutionRequest
     private List<ResolutionListener> listeners = new ArrayList<ResolutionListener>();
 
     // This is like a filter but overrides all transitive versions 
-    private Map managedVersionMap;
+    private Map<String, Artifact> managedVersionMap;
     
     private boolean resolveRoot = true;
 
@@ -195,12 +194,12 @@ public class ArtifactResolutionRequest
         return this;
     }
 
-    public Map getManagedVersionMap()
+    public Map<String, Artifact> getManagedVersionMap()
     {
         return managedVersionMap;
     }
 
-    public ArtifactResolutionRequest setManagedVersionMap( Map managedVersionMap )
+    public ArtifactResolutionRequest setManagedVersionMap( Map<String, Artifact> managedVersionMap )
     {
         this.managedVersionMap = managedVersionMap;
 
@@ -241,16 +240,6 @@ public class ArtifactResolutionRequest
                 .append( "remoteRepositories: " ).append(  remoteRepositories ).append(  "\n" );
         
         return sb.toString();
-    }
-
-    public RepositoryCache getCache()
-    {
-        return null;
-    }
-
-    public ArtifactResolutionRequest setCache( RepositoryCache cache )
-    {
-        return this;
     }
 
     public boolean isOffline()

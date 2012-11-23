@@ -31,6 +31,7 @@ import org.codehaus.plexus.util.Os;
  * Determines profile activation based on the operating system of the current runtime platform.
  * 
  * @author Benjamin Bentmann
+ * @see ActivationOS
  */
 @Component( role = ProfileActivator.class, hint = "os" )
 public class OperatingSystemProfileActivator
@@ -39,35 +40,37 @@ public class OperatingSystemProfileActivator
 
     public boolean isActive( Profile profile, ProfileActivationContext context, ModelProblemCollector problems )
     {
-        boolean active = false;
-
         Activation activation = profile.getActivation();
 
-        if ( activation != null )
+        if ( activation == null )
         {
-            ActivationOS os = activation.getOs();
+            return false;
+        }
 
-            if ( os != null )
-            {
-                active = ensureAtLeastOneNonNull( os );
+        ActivationOS os = activation.getOs();
 
-                if ( active && os.getFamily() != null )
-                {
-                    active = determineFamilyMatch( os.getFamily() );
-                }
-                if ( active && os.getName() != null )
-                {
-                    active = determineNameMatch( os.getName() );
-                }
-                if ( active && os.getArch() != null )
-                {
-                    active = determineArchMatch( os.getArch() );
-                }
-                if ( active && os.getVersion() != null )
-                {
-                    active = determineVersionMatch( os.getVersion() );
-                }
-            }
+        if ( os == null )
+        {
+            return false;
+        }
+
+        boolean active = ensureAtLeastOneNonNull( os );
+
+        if ( active && os.getFamily() != null )
+        {
+            active = determineFamilyMatch( os.getFamily() );
+        }
+        if ( active && os.getName() != null )
+        {
+            active = determineNameMatch( os.getName() );
+        }
+        if ( active && os.getArch() != null )
+        {
+            active = determineArchMatch( os.getArch() );
+        }
+        if ( active && os.getVersion() != null )
+        {
+            active = determineVersionMatch( os.getVersion() );
         }
 
         return active;
@@ -91,14 +94,7 @@ public class OperatingSystemProfileActivator
 
         boolean result = Os.isVersion( test );
 
-        if ( reverse )
-        {
-            return !result;
-        }
-        else
-        {
-            return result;
-        }
+        return reverse ? !result : result;
     }
 
     private boolean determineArchMatch( String arch )
@@ -114,14 +110,7 @@ public class OperatingSystemProfileActivator
 
         boolean result = Os.isArch( test );
 
-        if ( reverse )
-        {
-            return !result;
-        }
-        else
-        {
-            return result;
-        }
+        return reverse ? !result : result;
     }
 
     private boolean determineNameMatch( String name )
@@ -137,14 +126,7 @@ public class OperatingSystemProfileActivator
 
         boolean result = Os.isName( test );
 
-        if ( reverse )
-        {
-            return !result;
-        }
-        else
-        {
-            return result;
-        }
+        return reverse ? !result : result;
     }
 
     private boolean determineFamilyMatch( String family )
@@ -160,14 +142,7 @@ public class OperatingSystemProfileActivator
 
         boolean result = Os.isFamily( test );
 
-        if ( reverse )
-        {
-            return !result;
-        }
-        else
-        {
-            return result;
-        }
+        return reverse ? !result : result;
     }
 
 }

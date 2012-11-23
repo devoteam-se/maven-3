@@ -41,6 +41,7 @@ import org.codehaus.plexus.util.StringUtils;
  * Determines profile activation based on the existence/absence of some file.
  * 
  * @author Benjamin Bentmann
+ * @see ActivationFile
  */
 @Component( role = ProfileActivator.class, hint = "file" )
 public class FileProfileActivator
@@ -127,10 +128,10 @@ public class FileProfileActivator
         }
         catch ( Exception e )
         {
-            problems.add( new ModelProblemCollectorRequest( Severity.ERROR, Version.BASE)
-                    .setMessage( "Failed to interpolate file location " + path + " for profile " + profile.getId() + ": " + e.getMessage())
-                    .setLocation( file.getLocation( missing ? "missing" : "exists" ))
-                    .setException( e ));
+            problems.add( new ModelProblemCollectorRequest( Severity.ERROR, Version.BASE )
+                    .setMessage( "Failed to interpolate file location " + path + " for profile " + profile.getId() + ": " + e.getMessage() )
+                    .setLocation( file.getLocation( missing ? "missing" : "exists" ) )
+                    .setException( e ) );
             return false;
         }
 
