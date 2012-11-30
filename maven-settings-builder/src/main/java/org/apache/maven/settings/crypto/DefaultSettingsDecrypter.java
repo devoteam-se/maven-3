@@ -59,7 +59,7 @@ public class DefaultSettingsDecrypter
 
             try
             {
-                server.setPassword( decrypt( server.getPassword() ) );
+                server.setPassword( decryptStr( server.getPassword() ) );
             }
             catch ( CryptoException e )
             {
@@ -69,7 +69,7 @@ public class DefaultSettingsDecrypter
 
             try
             {
-                server.setPassphrase( decrypt( server.getPassphrase() ) );
+                server.setPassphrase( decryptStr( server.getPassphrase() ) );
             }
             catch ( CryptoException e )
             {
@@ -88,7 +88,7 @@ public class DefaultSettingsDecrypter
 
             try
             {
-                proxy.setPassword( decrypt( proxy.getPassword() ) );
+                proxy.setPassword( decryptStr( proxy.getPassword() ) );
             }
             catch ( CryptoException e )
             {
@@ -100,7 +100,7 @@ public class DefaultSettingsDecrypter
         return new DefaultSettingsDecryptionResult( servers, proxies, problems );
     }
 
-    private String decrypt( String str )
+    private String decryptStr( String str )
         throws CryptoException
     {
         if ( str != null )
