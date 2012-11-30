@@ -28,10 +28,16 @@ import org.sonatype.plexus.components.sec.dispatcher.model.SettingsSecurity;
 public final class DefaultSecretKey
     implements SecretKey
 {
-
+    
+    /**
+     * Locates the {@code settings-security.xml}
+     */
     @Requirement
     FileLocator settingsSecurityLocator;
-
+    
+    /**
+     * {@inheritDoc}
+     */
     public String getValue()
         throws CryptoException
     {
