@@ -22,7 +22,7 @@ package org.apache.maven.settings.crypto;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.maven.security.crypto.CryptoDecorator;
+import org.apache.maven.security.crypto.Crypto;
 import org.apache.maven.security.crypto.CryptoException;
 import org.apache.maven.settings.Proxy;
 import org.apache.maven.settings.Server;
@@ -43,7 +43,7 @@ public class DefaultSettingsDecrypter
 {
 
     @Requirement
-    private CryptoDecorator crypto;
+    private Crypto crypto;
 
     public SettingsDecryptionResult decrypt( SettingsDecryptionRequest request )
     {
@@ -105,12 +105,7 @@ public class DefaultSettingsDecrypter
     {
         if ( str != null )
         {
-            String decryptedStr = crypto.decrypt( str );
-            if ( crypto.isDecoratedText( decryptedStr ) )
-            {
-                decryptedStr = crypto.unDecorateText( decryptedStr );
-            }
-            return decryptedStr;
+            return crypto.decrypt( str );
         }
 
         return null;

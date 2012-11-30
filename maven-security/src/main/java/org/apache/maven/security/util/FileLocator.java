@@ -18,8 +18,7 @@ package org.apache.maven.security.util;
 import java.io.IOException;
 
 /**
- * This class mainly supports access to files. The purpose is to provide an interface that treat files the same way
- * whether they are in a file directory structure, inside an archive etc.
+ * Locates a file.
  * 
  * @author Karin Karlsson
  */

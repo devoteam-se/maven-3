@@ -26,7 +26,7 @@ import org.sonatype.plexus.components.cipher.PlexusCipherException;
  * @author Karin Karlsson
  */
 @Component( role = CryptoDecorator.class )
-public class DefaultCryptoDecorator
+public final class DefaultCryptoDecorator
     extends CryptoDecorator
 {
 

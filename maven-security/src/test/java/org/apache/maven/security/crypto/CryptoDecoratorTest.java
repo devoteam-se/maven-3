@@ -37,7 +37,11 @@ public class CryptoDecoratorTest
             // do nothing
         }
     }
-
+    
+    /**
+     * This test is successful if it can decorate the string {@code bla} using
+     * current {@code CryptoDecorator} implementation.
+     */
     public void testDecoration()
     {
         try

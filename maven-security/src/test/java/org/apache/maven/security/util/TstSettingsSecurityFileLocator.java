@@ -5,12 +5,23 @@ import java.io.IOException;
 
 import org.apache.maven.security.util.FileLocator;
 
+/**
+ * Locates the {@code settings-security.xml} file located in the
+ * test/resources directory.
+ * 
+ * 
+ * @author Karin Karlsson
+ *
+ */
 public class TstSettingsSecurityFileLocator
     implements FileLocator
 
 {
     private final String pathSep = System.getProperty( "path.separator" );
 
+    /**
+     * {@inheritDoc}
+     */
     public String getLocation()
         throws IOException
     {

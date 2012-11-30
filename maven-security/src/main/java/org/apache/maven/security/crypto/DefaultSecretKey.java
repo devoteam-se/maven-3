@@ -25,7 +25,7 @@ import org.sonatype.plexus.components.sec.dispatcher.SecUtil;
 import org.sonatype.plexus.components.sec.dispatcher.model.SettingsSecurity;
 
 @Component( role = SecretKey.class )
-public class DefaultSecretKey
+public final class DefaultSecretKey
     implements SecretKey
 {
 

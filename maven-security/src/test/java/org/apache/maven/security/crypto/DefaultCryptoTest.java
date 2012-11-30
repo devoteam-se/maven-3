@@ -53,10 +53,12 @@ public class DefaultCryptoTest
     }
 
     /**
-     * Tests the {@link SecretKeyCrypto#getKey()} method of the default implementation of {@link DefaultCrypto}
-     * implementation.
+     * The test is successful if it can locate  {@code settings-security.xml} file found
+     * in the test/resources directory and extract the master key from that file.
      * 
      * @see TstSettingsSecurityFileLocator
+     * @see SecretKeyCrypto#getKey()
+     * @see SecretKey#getValue()
      */
     public void testGetKey()
     {
@@ -74,10 +76,10 @@ public class DefaultCryptoTest
     }
 
     /**
-     * Tests the {@link SecretKeyCrypto#encryptSecretKey(String)} method of the default implementation of
-     * {@link DefaultCrypto} implementation.
+     * This test is successful if it can encrypt the master key.
      * 
      * @see TstSettingsSecurityFileLocator
+     * @see SecretKeyCrypto#encryptSecretKey(String)
      */
     public void testEncryptSecretKey()
     {
@@ -112,6 +114,9 @@ public class DefaultCryptoTest
 
     /**
      * Test to encrypt a string using the secret key found in the test/resources/settings-security.xml file.
+     * 
+     * @see TstSettingsSecurityFileLocator
+     * @see Crypto#encrypt(String)
      */
     public void testEncrypt()
     {
@@ -144,6 +149,9 @@ public class DefaultCryptoTest
 
     /**
      * Test to decrypt a string encrypted with the secret key found in the test/resources/settings-security.xml file.
+     * 
+     * @see TstSettingsSecurityFileLocator
+     * @see Crypto#decrypt(String)
      */
     public void testDecrypt()
     {

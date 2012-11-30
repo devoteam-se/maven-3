@@ -28,9 +28,10 @@ import org.sonatype.plexus.components.sec.dispatcher.SecDispatcherException;
  * @author Karin Karlsson
  */
 @Component( role = Crypto.class )
-public class DefaultCrypto
+public final class DefaultCrypto
     implements SecretKeyCrypto
 {
+    
 
     @Requirement
     private SecretKey secretKey;

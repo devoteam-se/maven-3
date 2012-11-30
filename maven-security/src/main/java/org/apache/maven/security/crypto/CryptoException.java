@@ -16,7 +16,7 @@ package org.apache.maven.security.crypto;
  */
 
 /**
- * Occurs when there is a problem encrypting or decrypting a text.
+ * Occurs when there is a problem encrypting or decrypting text.
  * 
  * @author Karin Karlsson
  */
